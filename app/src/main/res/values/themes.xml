@@ -4,4 +4,11 @@
     <style name="Theme.JetpackComposeWikipediaClone" parent="android:Theme.Material.Light.NoActionBar">
         <item name="android:statusBarColor">@color/wikipedia_toolbar</item>
     </style>
+
+    <style name="Theme.JetpackComposeWikipediaClone.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+    <style name="Theme.SplashScreenAndroid12.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+    <style name="Theme.SplashScreenAndroid12.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

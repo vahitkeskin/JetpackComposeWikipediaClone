@@ -5,8 +5,8 @@ import androidx.room.Room
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.google.gson.GsonBuilder
 import com.vahitkeskin.jetpackcomposewikipediaclone.BuildConfig
-import com.vahitkeskin.jetpackcomposewikipediaclone.api.FavoriteDatabase
-import com.vahitkeskin.jetpackcomposewikipediaclone.api.LastSearchDatabase
+import com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites.FavoriteDatabase
+import com.vahitkeskin.jetpackcomposewikipediaclone.dao.lastsearches.LastSearchDatabase
 import com.vahitkeskin.jetpackcomposewikipediaclone.api.WikipediaAPI
 import com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites.FavoriteDao
 import com.vahitkeskin.jetpackcomposewikipediaclone.dao.lastsearches.LastSearchDao

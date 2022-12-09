@@ -1,4 +1,4 @@
-package com.vahitkeskin.jetpackcomposewikipediaclone.api
+package com.vahitkeskin.jetpackcomposewikipediaclone.dao.lastsearches
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
