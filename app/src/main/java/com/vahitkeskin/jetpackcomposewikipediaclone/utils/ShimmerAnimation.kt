@@ -102,7 +102,12 @@ fun ShimmerSearchItem(
 fun ShimmerSearchLastItem(
     brush: Brush
 ) {
-    Box(modifier = Modifier.padding(start = 5.dp, end = 5.dp, top = 5.dp, bottom = 10.dp)) {
+    Box(modifier = Modifier.padding(
+        start = 10.dp,
+        end = 5.dp,
+        top = 5.dp,
+        bottom = 10.dp
+    )) {
         Spacer(
             modifier = Modifier
                 .padding(horizontal = 0.dp, vertical = 0.dp)

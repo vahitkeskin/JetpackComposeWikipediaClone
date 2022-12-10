@@ -2,8 +2,6 @@ package com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites.FavoriteDao
-import com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites.FavoriteRoom
 
 /**
  * @authot: Vahit Keskin

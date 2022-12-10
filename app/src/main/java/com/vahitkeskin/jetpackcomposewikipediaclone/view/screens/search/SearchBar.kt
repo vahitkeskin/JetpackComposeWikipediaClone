@@ -1,6 +1,5 @@
 package com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.search
 
-import android.widget.NumberPicker
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -27,9 +26,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.viewinterop.AndroidView
-import androidx.core.content.ContextCompat
 import com.vahitkeskin.jetpackcomposewikipediaclone.R
+import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.BigCircleColor
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaBg
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaSearchLastItemBG
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.AnimationObject
@@ -53,14 +51,8 @@ fun WikipediaSearchBar(
     var stateNumberPicker by remember { mutableStateOf(10) }
     var job: Job? = null
     val coroutineScope = rememberCoroutineScope()
-
-    var personIconPosition by remember { mutableStateOf(Offset.Zero) }
-    var personIconIntSize by remember { mutableStateOf(IntSize.Zero) }
     var searchIconPosition by remember { mutableStateOf(Offset.Zero) }
     var searchIconSize by remember { mutableStateOf(IntSize.Zero) }
-    val color1 = Color(0xff15a8a6)
-    val color4 = Color(0xffe4335d)
-    val iconAnimationColor = Color(0xff2c3a8c)
 
     Box {
         Row(
@@ -119,7 +111,7 @@ fun WikipediaSearchBar(
                 }
             )
 
-            AndroidView(
+            SearchLimitNumberPicker(
                 modifier = Modifier
                     .onSizeChanged {
                         searchIconSize = it
@@ -127,26 +119,14 @@ fun WikipediaSearchBar(
                     .onGloballyPositioned {
                         searchIconPosition = it.positionInRoot()
                     }
-                    .width(50.dp)
-                    .height(80.dp)
-                    .padding(5.dp),
-                factory = { context ->
-                    NumberPicker(context).apply { //For scroll request limit value, default 10
-                        textColor = ContextCompat.getColor(context, android.R.color.white)
-                        setOnValueChangedListener { numberPicker, _, _ ->
-                            stateNumberPicker =
-                                if (numberPicker.value > 0) numberPicker.value else 1
-                        }
-                        minValue = 0
-                        maxValue = 20
-                        value = stateNumberPicker
-                    }
-                }
-            )
+            ) { mStateNumberPicker ->
+                stateNumberPicker = mStateNumberPicker
+            }
 
             FloatingActionButton(
                 backgroundColor = WikipediaBg,
                 modifier = Modifier
+                    .padding(end = 10.dp)
                     .size(50.dp)
                     .border(0.5.dp, Color.LightGray, CircleShape),
                 onClick = {
@@ -161,42 +141,38 @@ fun WikipediaSearchBar(
                 )
             }
         }
-        println("searchIconPosition and searchIconSize size: $searchIconPosition AND $searchIconSize")
+
         //ZOOM INFO
-        var animationTooltips: List<AnimationObject> =
+        val animationTooltips: List<AnimationObject> =
             listOf(
                 //SearchingIcon
                 AnimationObject(
                     bigCircleRadius = 400.dp,
-                    bigCircleColor = color4,
+                    bigCircleColor = BigCircleColor,
                     smallCircleRadius = 50.dp,
                     smallCircleColor = WikipediaSearchLastItemBG,
                     objectToShow = {
-                        SearchIcon()
+                        SearchLimitNumberPicker { }
                     },
-                    objectOffset = searchIconPosition,
+                    objectOffset = searchIconPosition + Offset(10.0f, -150.0f),
                     objectSize = searchIconSize,
                     composeDescription = {
-                        Column(
-                            modifier = Modifier.background(Color.Red)
-                        ) {
+                        Column {
                             Text(
                                 text = "Use NumberPicker",
                                 style = MaterialTheme.typography.h6,
                                 color = Color.White,
                                 fontWeight = FontWeight.W500
                             )
+                            Spacer(modifier = Modifier.padding(5.dp))
                             Text(
-                                text = "You can set the request limit,\nso you can prevent\nunnecessary data from coming.\n(Default limit 10)",
+                                text = "You can set the request limit,\nso you can prevent unnecessary\ndata from coming.\uD83D\uDE09\n(Default limit 10)",
                                 style = MaterialTheme.typography.subtitle1,
                                 color = Color.White
                             )
                         }
                     },
-                    composeDescriptionOffset = Offset(
-                        personIconPosition.x.plus(personIconIntSize.width.times(2)),
-                        personIconPosition.y.plus(personIconIntSize.height.times(2)),
-                    )
+                    composeDescriptionOffset = Offset(200.0f, 300.0f)
                 )
             )
 
@@ -208,28 +184,8 @@ fun WikipediaSearchBar(
                     .background(Color.Black.copy(0.3f)),
                 tooltipsList = animationTooltips,
                 state = { state = it },
-                bigCircleColorBeforeDisappearing = color1
+                bigCircleColorBeforeDisappearing = BigCircleColor
             )
         }
     }
-}
-
-@Composable
-fun SearchIcon() {
-    AndroidView(
-        modifier = Modifier
-            .width(50.dp)
-            .height(80.dp)
-            .padding(5.dp),
-        factory = { context ->
-            NumberPicker(context).apply { //For scroll request limit value, default 10
-                textColor = ContextCompat.getColor(context, android.R.color.white)
-                setOnValueChangedListener { numberPicker, _, _ ->
-                }
-                minValue = 0
-                maxValue = 20
-                value = 10
-            }
-        }
-    )
 }

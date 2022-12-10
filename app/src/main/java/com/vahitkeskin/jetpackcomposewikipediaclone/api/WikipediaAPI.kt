@@ -3,9 +3,7 @@ package com.vahitkeskin.jetpackcomposewikipediaclone.api
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.main_page.MainPageModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.search.SearchModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.searchitem.SearchItemModel
-import retrofit2.Call
 import retrofit2.Response
-import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query

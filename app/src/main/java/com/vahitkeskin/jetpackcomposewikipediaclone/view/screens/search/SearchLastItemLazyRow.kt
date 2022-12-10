@@ -37,7 +37,7 @@ fun SearchLastItemLazyRow(lastText: LastSearchRoom, position: Int, viewModelItem
     var selectedItemPosition by remember { mutableStateOf(-1) }
     Row(
         modifier = Modifier
-            .padding(start = 10.dp, 5.dp)
+            .padding(start = 10.dp, top = 5.dp, end = 5.dp, bottom = 10.dp)
             .clip(RoundedCornerShape(5.dp))
             .background(WikipediaSearchLastItemBG)
             .clickable {

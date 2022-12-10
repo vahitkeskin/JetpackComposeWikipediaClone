@@ -31,7 +31,7 @@ class BalloonFactory : Balloon.Factory() {
             .setTextSize(15f)
             .setCornerRadius(8f)
             .setTextColorResource(R.color.white_87)
-            .setIconDrawableResource(R.drawable.wikipedia_logo)
+            .setIconDrawableResource(R.drawable.wikipedia_official_logo_icon)
             .setBackgroundColorResource(R.color.skyBlue)
             .setBalloonAnimation(BalloonAnimation.ELASTIC)
             .setIsVisibleOverlay(true)

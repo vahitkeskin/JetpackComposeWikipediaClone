@@ -78,7 +78,7 @@ fun SearchScreen(
             stateListSize = true
             searchItemDataClass.clear()
             if (fabClick) {
-                val lastSearchRoom = LastSearchRoom(0,mSearch)
+                val lastSearchRoom = LastSearchRoom(0, mSearch)
                 lastSearchViewModel.addLastSearch(lastSearchRoom)
             }
         }
@@ -115,38 +115,40 @@ fun SearchScreen(
         }
 
         if (searchLastItem.size != 0) {
-            Row(
-                modifier = Modifier.padding(start = 10.dp, top = 5.dp, bottom = 5.dp, end = 10.dp)
-            ) {
-                Text(
-                    modifier = Modifier.weight(1f),
-                    text = "My Past Searches",
-                    textAlign = TextAlign.Start,
-                    fontSize = 14.sp
-                )
+            if (searchLastItem.size > 1) {
                 Row(
-                    modifier = Modifier
-                        .clickable(
-                            indication = null,
-                            interactionSource = remember { MutableInteractionSource() } // This is mandatory
-                        ) {
-                            lastSearchViewModel.deleteAllLastSearch()
-                            searchLastItem.clear()
-                            Toast.makeText(context, "Clear All", Toast.LENGTH_SHORT).show()
-                        },
+                    modifier = Modifier.padding(start = 10.dp, top = 5.dp, bottom = 5.dp, end = 10.dp)
                 ) {
                     Text(
-                        text = "Clear All",
-                        textAlign = TextAlign.End,
+                        modifier = Modifier.weight(1f),
+                        text = "My Past Searches",
+                        textAlign = TextAlign.Start,
                         fontSize = 14.sp
                     )
-                    Icon(
+                    Row(
                         modifier = Modifier
-                            .padding(start = 5.dp)
-                            .size(20.dp),
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null
-                    )
+                            .clickable(
+                                indication = null,
+                                interactionSource = remember { MutableInteractionSource() } // This is mandatory
+                            ) {
+                                lastSearchViewModel.deleteAllLastSearch()
+                                searchLastItem.clear()
+                                Toast.makeText(context, "Clear All", Toast.LENGTH_SHORT).show()
+                            },
+                    ) {
+                        Text(
+                            text = "Clear All",
+                            textAlign = TextAlign.End,
+                            fontSize = 14.sp
+                        )
+                        Icon(
+                            modifier = Modifier
+                                .padding(start = 5.dp)
+                                .size(20.dp),
+                            imageVector = Icons.Default.Delete,
+                            contentDescription = null
+                        )
+                    }
                 }
             }
             Box {

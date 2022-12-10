@@ -6,4 +6,6 @@ ext {
     accompanist_version = '0.24.3-alpha'
     retrofitVersion = '2.9.0'
     room_version = '2.5.0-rc01'
+    datastore_version = '1.0.0'
+    balloon_version = '1.4.7'
 }

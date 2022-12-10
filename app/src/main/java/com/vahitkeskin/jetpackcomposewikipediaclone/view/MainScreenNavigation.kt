@@ -86,8 +86,7 @@ fun MainScreenNavigation(
                 val counter = navBackStack.arguments?.getString("id")
                 if (!counter.isNullOrBlank()) {
                     Log.d(
-                        this.javaClass.simpleName,
-                        "MainScreenNavigation: ${navBackStack.arguments}"
+                        this.javaClass.simpleName, "MainScreenNavigation: ${navBackStack.arguments}"
                     )
                     CharactersDetailScreen(
                         detailViewModel = detailViewModel,
@@ -106,19 +105,16 @@ fun MainScreenNavigation(
             })
         }
         //It will be shown only once, when Dismiss is done the dataStore value 0 will be saved
-        if (dataStore.getSearchPopup.collectAsState(initial = "").value != 0) {
-            AndroidView(
-                modifier = Modifier
-                    .align(Alignment.BottomCenter)
-                    .padding(bottom = 30.dp)
-                    .size(height = 110.dp, width = 60.dp),
-                factory = { context ->
-                    View(context).apply {
-                        balloon?.let {
-                            showAtCenter(it)
-                        }
-                    }
-                })
-        }
+        if (dataStore.getSearchPopup.collectAsState(initial = "").value != 0) { } //Development...
+        AndroidView(modifier = Modifier
+            .align(Alignment.BottomCenter)
+            .padding(bottom = 30.dp)
+            .size(height = 110.dp, width = 60.dp), factory = { context ->
+            View(context).apply {
+                balloon?.let {
+                    showAtCenter(it)
+                }
+            }
+        })
     }
 }

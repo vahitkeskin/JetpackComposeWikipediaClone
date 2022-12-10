@@ -2,9 +2,6 @@ package com.vahitkeskin.jetpackcomposewikipediaclone.repository
 
 import com.vahitkeskin.jetpackcomposewikipediaclone.api.WikipediaAPI
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.main_page.MainPageModel
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.Resource
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
 
 /**

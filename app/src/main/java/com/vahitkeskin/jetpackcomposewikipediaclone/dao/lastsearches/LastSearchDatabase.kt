@@ -2,8 +2,6 @@ package com.vahitkeskin.jetpackcomposewikipediaclone.dao.lastsearches
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.vahitkeskin.jetpackcomposewikipediaclone.dao.lastsearches.LastSearchDao
-import com.vahitkeskin.jetpackcomposewikipediaclone.dao.lastsearches.LastSearchRoom
 
 /**
  * @authot: Vahit Keskin
