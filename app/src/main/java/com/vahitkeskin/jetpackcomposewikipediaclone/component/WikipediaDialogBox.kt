@@ -58,7 +58,6 @@ fun DeleteDialogBox(
                         .fillMaxWidth()
                 ) {
 
-                    // text and buttons
                     Column(
                         modifier = Modifier
                             .padding(top = 30.dp) // this is the empty space at the top
@@ -73,7 +72,6 @@ fun DeleteDialogBox(
 
                         Text(
                             text = "Delete?",
-                            //fontFamily = FontFamily(Font(R.font.roboto_medium, FontWeight.Bold)),
                             fontSize = 24.sp
                         )
 
@@ -82,7 +80,6 @@ fun DeleteDialogBox(
                         Text(
                             modifier = Modifier.padding(horizontal = 16.dp),
                             text = "Are you sure, you want to delete the item?",
-                            //fontFamily = FontFamily(Font(R.font.roboto_regular, FontWeight.Normal)),
                             fontSize = 18.sp
                         )
 
@@ -107,7 +104,6 @@ fun DeleteDialogBox(
                             }
                         }
 
-                        // If you decrease the Surface's width, increase this height
                         Spacer(modifier = Modifier.height(height = spaceBetweenElements * 2))
                     }
 
@@ -150,7 +146,6 @@ fun DialogButton(
             text = buttonText,
             color = Color.White,
             fontSize = 18.sp,
-            //fontFamily = FontFamily(Font(R.font.roboto_medium, FontWeight.Medium))
         )
     }
 }

@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="wikipedia_toolbar">#24292E</color>
+    <color name="white_87">#ddffffff</color>
+    <color name="skyBlue">#57A8D8</color>
+    <color name="overlay">#BF000000</color>
 </resources>

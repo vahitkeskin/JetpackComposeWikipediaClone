@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.created.MainPageTagModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.repository.MainPageRepository
+import com.vahitkeskin.jetpackcomposewikipediaclone.utils.Constants
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.State
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.Utils
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.htmlBackgroundColor
@@ -73,60 +74,60 @@ class MainPageViewModel @Inject constructor(
         //TAG6
         mainPageTagModel.add(
             MainPageTagModel(
-                title = doc.select("th#mp-dyk-head").text(),
-                detail = doc.select("div#mf-dyk").select("tr").get(2).text(),
-                image = "https:" + doc.select("td#mp-dyk").select("img").attr("src"),
-                background = doc.select("th#mp-dyk-head").html().trimIndent().htmlBackgroundColor()
+                title = doc.select(Constants.TAG6_TITLE_AND_BACKGROUND).text(),
+                detail = doc.select(Constants.TAG6_DETAIL).select(Constants.TR).get(2).text(),
+                image = Constants.HTTPS + doc.select(Constants.TAG6_IMAGE).select(Constants.IMG).attr(Constants.SRC),
+                background = doc.select(Constants.TAG6_TITLE_AND_BACKGROUND).html().trimIndent().htmlBackgroundColor()
             )
         )
 
         //TAG1
         mainPageTagModel.add(
             MainPageTagModel(
-                title = doc.select("th#mp-tfa-head").text(),
-                detail = doc.select("td#mp-tfa").select("a").text(),
-                image = "https:" + doc.select("td#mp-tfa").select("img").attr("src"),
-                background = doc.select("th#mp-bm-head").html().trimIndent().htmlBackgroundColor()
+                title = doc.select(Constants.TAG1_TAG6_TITLE_AND_BACKGROUND).text(),
+                detail = doc.select(Constants.TAG1_DETAIL_AND_IMAGE).select(Constants.A).text(),
+                image = Constants.HTTPS + doc.select(Constants.TAG1_DETAIL_AND_IMAGE).select(Constants.IMG).attr(Constants.SRC),
+                background = doc.select(Constants.TAG1_BACKGROUND).html().trimIndent().htmlBackgroundColor()
             )
         )
 
         //TAG2
         mainPageTagModel.add(
             MainPageTagModel(
-                title = doc.select("div#mp-tfp-h2").text(),
-                detail = doc.select("td#mp-tfp").select("a").text(),
-                image = "https:" + doc.select("td#mp-tfp").select("img").attr("src"),
-                background = doc.select("th#mp-tfp-head").html().trimIndent().htmlBackgroundColor()
+                title = doc.select(Constants.TAG2_TITLE).text(),
+                detail = doc.select(Constants.TAG2_DETAIL_AND_IMAGE).select(Constants.A).text(),
+                image = Constants.HTTPS + doc.select(Constants.TAG2_DETAIL_AND_IMAGE).select(Constants.IMG).attr(Constants.SRC),
+                background = doc.select(Constants.TAG2_BACKGROUND).html().trimIndent().htmlBackgroundColor()
             )
         )
 
         //TAG3
         mainPageTagModel.add(
             MainPageTagModel(
-                title = doc.select("div#mp-bm-h2").text(),
-                detail = doc.select("td#mp-bm").select("a").text(),
-                image = "https:" + doc.select("td#mp-bm").select("img").attr("src"),
-                background = doc.select("th#mp-tfa-head").html().trimIndent().htmlBackgroundColor()
+                title = doc.select(Constants.TAG3_TITLE).text(),
+                detail = doc.select(Constants.TAG3_DETAIL_AND_IMAGE).select(Constants.A).text(),
+                image = Constants.HTTPS + doc.select(Constants.TAG3_DETAIL_AND_IMAGE).select(Constants.IMG).attr(Constants.SRC),
+                background = doc.select(Constants.TAG1_TAG6_TITLE_AND_BACKGROUND).html().trimIndent().htmlBackgroundColor()
             )
         )
 
         //TAG4
         mainPageTagModel.add(
             MainPageTagModel(
-                title = doc.select("div#mp-itn-h2").get(0).text(),
-                detail = doc.select("td#mp-itn").get(0).select("a").text(),
-                image = "https:" + doc.select("td#mp-itn").get(0).select("img").attr("src"),
-                background = doc.select("th#mp-itn-head").html().trimIndent().htmlBackgroundColor()
+                title = doc.select(Constants.TAG4_TAG5_TITLE).get(0).text(),
+                detail = doc.select(Constants.TAG4_TAG5_DETAIL_IMAGE).get(0).select(Constants.A).text(),
+                image = Constants.HTTPS + doc.select(Constants.TAG4_TAG5_DETAIL_IMAGE).get(0).select(Constants.IMG).attr(Constants.SRC),
+                background = doc.select(Constants.TAG4_TAG5_BACKGROUND).html().trimIndent().htmlBackgroundColor()
             )
         )
 
         //TAG5
         mainPageTagModel.add(
             MainPageTagModel(
-                title = doc.select("div#mp-itn-h2").get(1).text(),
-                detail = doc.select("div.hlist-separated").get(1).select("a").text(),
-                image = "https:" + doc.select("td#mp-itn").get(1).select("img").attr("src"),
-                background = doc.select("th#mp-itn-head").get(1).html().trimIndent().htmlBackgroundColor()
+                title = doc.select(Constants.TAG4_TAG5_TITLE).get(1).text(),
+                detail = doc.select(Constants.TAG5_DETAIL).get(1).select(Constants.A).text(),
+                image = Constants.HTTPS + doc.select(Constants.TAG4_TAG5_DETAIL_IMAGE).get(1).select(Constants.IMG).attr(Constants.SRC),
+                background = doc.select(Constants.TAG4_TAG5_BACKGROUND).get(1).html().trimIndent().htmlBackgroundColor()
             )
         )
 

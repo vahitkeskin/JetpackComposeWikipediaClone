@@ -39,16 +39,6 @@ fun SingleItemScreen(
                 ) {
                     WikipediaParallax(mainPageTagModelState.image.orEmpty(), PagePreview.HOME_PAGE)
                 }
-                /*
-                Image(
-                    painter = rememberAsyncImagePainter(item1Image),
-                    contentDescription = null,
-                    modifier = Modifier
-                        .padding(10.dp)
-                        .size(height = 200.dp, width = 400.dp),
-                    contentScale = ContentScale.FillBounds
-                )
-                */
                 Text(
                     modifier = Modifier.padding(bottom = 10.dp),
                     text = mainPageTagModelState.detail.orEmpty()

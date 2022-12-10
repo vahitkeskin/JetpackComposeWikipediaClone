@@ -18,14 +18,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
+import com.skydoves.balloon.Balloon
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaBg
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.Screen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun BottomBarWithFabDem() {
+fun BottomBarWithFabDem(
+    balloon: Balloon ?= null
+) {
     var fabTint by remember { mutableStateOf(false) }
-    println("1. Start in the BottomBarWithFabDem...")
     val navController = rememberAnimatedNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     Scaffold(
@@ -42,7 +44,7 @@ fun BottomBarWithFabDem() {
                         cutoutShape = CircleShape,
                         backgroundColor = WikipediaBg,
                         elevation = 22.dp
-                    ){
+                    ) {
                         BottomNav(
                             navBackStackEntry = navBackStackEntry,
                             navController = navController
@@ -81,13 +83,13 @@ fun BottomBarWithFabDem() {
                     }
                 })
         }
-    ){ innerPadding ->
-        println("2. Start in the BottomBarWithFabDem...")
-        MainScreenNavigation(navController,innerPadding) { fabTint = it }
-        /*
-        Box(modifier = Modifier.padding(innerPadding)) {
-            MainScreenNavigation(navController, innerPadding) { fabTint = it }
+    ) { innerPadding ->
+        MainScreenNavigation(
+            balloon,
+            navController,
+            innerPadding
+        ) {
+            fabTint = it
         }
-        */
     }
 }

@@ -94,8 +94,8 @@ fun SearchScreen(
                         is State.DataState -> {
                             it.data.body()?.pages?.forEach { mPage ->
                                 val model = SearchItemDataClass(
-                                    title = mPage.title ?: "",
-                                    description = mPage.description ?: "",
+                                    title = mPage.title,
+                                    description = mPage.description,
                                     url = if (mPage.thumbnail != null) mPage.thumbnail.url else "",
                                     key = mPage.key
                                 )
@@ -168,6 +168,7 @@ fun SearchScreen(
                                     lastText = mSearchLastItem,
                                     position = position
                                 ) {
+                                    search = it.title
                                     lastSearchViewModel.deleteLastSearch(it)
                                 }
                             }

@@ -30,7 +30,7 @@ class Utils {
             if(e is HttpException){
                 when(e.code()){
                     502 -> {
-                        error = NetworkErrorException(e.code(),  "internal error!")
+                        error = NetworkErrorException("internal error!")
                     }
                     401 -> {
                         throw AuthenticationException("authentication error!")

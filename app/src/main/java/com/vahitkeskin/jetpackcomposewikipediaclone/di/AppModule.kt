@@ -91,17 +91,6 @@ class AppModule {
         return app
     }
 
-    //MainPage
-    /*
-    @Singleton
-    @Provides
-    fun injectRetrofitAPI() : WikipediaAPI {
-        return Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create())
-            .baseUrl(BASE_URL).build().create(WikipediaAPI::class.java)
-    }
-    */
-
     @Provides
     @Singleton
     internal fun provideCache(context: Context): Cache {
@@ -137,14 +126,13 @@ class AppModule {
     fun provideHeaderInterceptor(): Interceptor {
         return Interceptor {
             val requestBuilder = it.request().newBuilder()
-            //hear you can add all headers you want by calling 'requestBuilder.addHeader(name ,  value)'
             it.proceed(requestBuilder.build())
         }
     }
 
     @Provides
     @Singleton
-    fun provideRetrofit(client: OkHttpClient): Retrofit {
+    fun provideRetrofit(): Retrofit {
         return Retrofit.Builder().baseUrl(BASE_URL).client(client().build())
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()

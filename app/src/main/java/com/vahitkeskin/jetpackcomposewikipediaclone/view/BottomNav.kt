@@ -78,18 +78,6 @@ fun BottomNav(
                                     }
                                 }
                             }
-
-                            /*
-                            item.route.let { it1 ->
-                                navController.navigate(it1) {
-                                    popUpTo(navController.graph.findStartDestination().id) {
-                                        saveState = true
-                                    }
-                                    launchSingleTop = true
-                                    restoreState = true
-                                }
-                            }
-                            */
                         }
                     )
                 }

@@ -127,4 +127,13 @@ dependencies {
     kapt "androidx.room:room-compiler:2.4.3"
     implementation "androidx.room:room-ktx:2.4.3"
 
+    //BALLOON
+    implementation "com.github.skydoves:balloon:1.4.7"
+
+    //DataStore & SharedPreferences
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
+    implementation "androidx.datastore:datastore-preferences-rxjava2:1.0.0"
+    implementation "androidx.datastore:datastore-preferences-rxjava3:1.0.0"
+
+
 }
