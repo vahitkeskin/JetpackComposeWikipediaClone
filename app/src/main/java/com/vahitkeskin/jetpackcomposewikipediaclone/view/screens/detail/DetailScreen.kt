@@ -36,12 +36,15 @@ fun DetailScreen(
     var state by remember { mutableStateOf(true) }
     val coroutineScope = rememberCoroutineScope()
     val detailItemModelList = remember { mutableStateListOf<DetailItemModel>() }
+    var favoriteIconAutoSelected by remember { mutableStateOf(false) }
+    val favoriteModel = remember { mutableStateListOf<FavoriteRoom>() }
 
     if (state) {
         coroutineScope.launch {
             detailViewModel.detailData(nameStr).collect {
                 when (it) {
                     is State.DataState -> {
+                        viewModel.getFavorite()
                         delay(1000)
                         detailItemModelList.add(
                             DetailItemModel(
@@ -51,6 +54,22 @@ fun DetailScreen(
                                 timestamp = it.data.body()?.timestamp
                             )
                         )
+                        viewModel.favorite.forEach { favoriteRoom ->
+                            //If this value is already in local, the favorite icon will be marked.
+                            if (favoriteRoom.itemTitle == detailItemModelList[0].description) {
+                                favoriteModel.add(FavoriteRoom(
+                                    id = favoriteRoom.id,
+                                    itemDetail = favoriteRoom.itemDetail,
+                                    itemTitle = favoriteRoom.itemTitle,
+                                    itemImage = favoriteRoom.itemImage,
+                                    itemSaveTime = favoriteRoom.itemSaveTime,
+                                    itemRandomRating = favoriteRoom.itemRandomRating
+                                ))
+                                favoriteIconAutoSelected = true
+                            } else {
+                                favoriteIconAutoSelected = false
+                            }
+                        }
                     }
                     is State.ErrorState -> {
                         Timber.d("4. Select for detail screen item name: ErrorState")
@@ -84,16 +103,24 @@ fun DetailScreen(
                         fontFamily = FontFamily.Cursive,
                         fontSize = 24.sp
                     )
-                    WikipediaFavoriteButton { selected ->
+                    WikipediaFavoriteButton(
+                        favoriteIconAutoSelected = favoriteIconAutoSelected
+                    ) { selected ->
+                        val favoriteRoom = FavoriteRoom(
+                            id = 0,
+                            itemTitle = detailItemModelList[0].description.orEmpty(),
+                            itemDetail = detailItemModelList[0].extract.orEmpty(),
+                            itemImage = detailItemModelList[0].originalimage.orEmpty(),
+                            itemSaveTime = instantTime(),
+                            itemRandomRating = ((25 .. 50).random() / 10).toFloat() //Random :)
+                        )
                         if (selected) {
-                            val favoriteRoom = FavoriteRoom(
-                                id = 0,
-                                itemTitle = detailItemModelList[0].description.orEmpty(),
-                                itemDetail = detailItemModelList[0].extract.orEmpty(),
-                                itemImage = detailItemModelList[0].originalimage.orEmpty(),
-                                itemSaveTime = instantTime()
-                            )
                             viewModel.addFavorite(favoriteRoom)
+                        } else {
+                            if (favoriteModel.size > 0) {
+                                //last() you are a perfect detail :)
+                                viewModel.deleteFavorite(favoriteModel.last())
+                            }
                         }
                     }
                 }

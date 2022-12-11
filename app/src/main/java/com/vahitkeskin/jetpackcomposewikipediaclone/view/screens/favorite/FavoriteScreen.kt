@@ -1,5 +1,6 @@
 package com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.favorite
 
+import android.graphics.PorterDuff
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.Toast
@@ -24,7 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.util.lerp
 import androidx.compose.ui.viewinterop.AndroidView
-import androidx.constraintlayout.widget.R
+import androidx.constraintlayout.widget.R.attr.ratingBarStyleSmall
+import androidx.core.content.ContextCompat
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.load
 import com.flaviofaria.kenburnsview.KenBurnsView
@@ -32,7 +34,9 @@ import com.google.accompanist.pager.ExperimentalPagerApi
 import com.google.accompanist.pager.HorizontalPager
 import com.google.accompanist.pager.calculateCurrentOffsetForPage
 import com.google.accompanist.pager.rememberPagerState
+import com.vahitkeskin.jetpackcomposewikipediaclone.R
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaExpandableText
+import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.RatingBarColor
 import com.vahitkeskin.jetpackcomposewikipediaclone.viewmodel.FavoriteViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
@@ -121,16 +125,26 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                                 fontWeight = FontWeight.Bold
                             )
 
+                            println("randomRating value: ${place.itemRandomRating}")
                             val ratingBar = RatingBar(
-                                LocalContext.current,
-                                null,
-                                R.attr.ratingBarStyleSmall
-                            )
+                                LocalContext.current, null, ratingBarStyleSmall
+                            ).apply {
+                                rating = place.itemRandomRating
+                                progressDrawable.setColorFilter(
+                                    ContextCompat.getColor(context,R.color.rating_bar_color),
+                                    PorterDuff.Mode.SRC_ATOP
+                                )
+                            }
 
-                            AndroidView(
-                                factory = { ratingBar },
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
+                            Row(
+                                modifier = Modifier.padding(top = 8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                AndroidView(
+                                    factory = { ratingBar }
+                                )
+                                Text(text = place.itemRandomRating.toString(), color = RatingBarColor)
+                            }
                             WikipediaExpandableText(
                                 text = place.itemDetail,
                                 modifier = Modifier.padding(top = 8.dp)
@@ -175,9 +189,12 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
         //Delete All
         if (viewModel.favorite.size > 1) {
             Row(
-                modifier = Modifier.clickable {
-                    viewModel.deleteAllFavorite()
-                }.fillMaxWidth().padding(5.dp),
+                modifier = Modifier
+                    .clickable {
+                        viewModel.deleteAllFavorite()
+                    }
+                    .fillMaxWidth()
+                    .padding(5.dp),
                 horizontalArrangement = Arrangement.End
             ) {
                 Text(text = "Delete All ")

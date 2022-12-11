@@ -17,4 +17,5 @@ data class FavoriteRoom(
     var itemDetail: String,
     var itemImage: String,
     var itemSaveTime: String,
+    var itemRandomRating: Float,
 )

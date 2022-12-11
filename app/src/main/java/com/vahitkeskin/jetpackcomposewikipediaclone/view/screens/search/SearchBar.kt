@@ -32,10 +32,11 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun WikipediaSearchBar(
+    lastSearch: String,
     modifier: Modifier,
     newSearch: (String, String, Boolean) -> Unit
 ) {
-    var search by remember { mutableStateOf("Mona Lisa") }
+    var search by remember { mutableStateOf(lastSearch) }
     val keyboard = LocalFocusManager.current
     var stateNumberPicker by remember { mutableStateOf(10) }
     var job: Job? = null

@@ -9,4 +9,6 @@ ext {
     datastore_version = '1.0.0'
     balloon_version = '1.4.7'
     timber_version = '5.0.1'
+    application_and_library_version = '7.3.1'
+    jetbrains_version = '1.6.10'
 }

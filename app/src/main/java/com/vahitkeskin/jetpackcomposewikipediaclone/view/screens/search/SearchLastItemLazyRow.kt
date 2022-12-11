@@ -32,7 +32,10 @@ import kotlinx.coroutines.launch
  * creared on 8.12.2022
  */
 @Composable
-fun SearchLastItemLazyRow(lastText: LastSearchRoom, position: Int, viewModelItemClick: (LastSearchRoom) -> Unit) {
+fun SearchLastItemLazyRow(
+    lastText: LastSearchRoom,
+    position: Int, viewModelItemClick: (LastSearchRoom,Boolean) -> Unit
+) {
     val context = LocalContext.current
     var selectedItemPosition by remember { mutableStateOf(-1) }
     Row(
@@ -41,8 +44,9 @@ fun SearchLastItemLazyRow(lastText: LastSearchRoom, position: Int, viewModelItem
             .clip(RoundedCornerShape(5.dp))
             .background(WikipediaSearchLastItemBG)
             .clickable {
+                viewModelItemClick.invoke(lastText,false)
                 Toast
-                    .makeText(context, "Select: $lastText", Toast.LENGTH_SHORT)
+                    .makeText(context, "Select: ${lastText.title}", Toast.LENGTH_SHORT)
                     .show()
             },
         verticalAlignment = Alignment.CenterVertically
@@ -55,7 +59,7 @@ fun SearchLastItemLazyRow(lastText: LastSearchRoom, position: Int, viewModelItem
                     selectedItemPosition = position
                     GlobalScope.launch {
                         delay(1000)
-                        viewModelItemClick.invoke(lastText)
+                        viewModelItemClick.invoke(lastText,true)
                         selectedItemPosition = -1
                     }
                     Toast

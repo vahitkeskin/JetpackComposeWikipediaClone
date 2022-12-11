@@ -95,6 +95,7 @@ fun SearchScreen(
             modifier = Modifier.fillMaxSize()
         ) {
             WikipediaSearchBar(
+                lastSearch = search,
                 modifier = Modifier
                     .onSizeChanged {
                         searchIconSize = it
@@ -205,9 +206,11 @@ fun SearchScreen(
                                     SearchLastItemLazyRow(
                                         lastText = mSearchLastItem,
                                         position = position
-                                    ) {
-                                        search = it.title
-                                        lastSearchViewModel.deleteLastSearch(it)
+                                    ) { lastSearchRoom, isDeleteItem ->
+                                        search = lastSearchRoom.title
+                                        if (isDeleteItem) {
+                                            lastSearchViewModel.deleteLastSearch(lastSearchRoom)
+                                        }
                                     }
                                 }
                             }

@@ -14,13 +14,16 @@ import androidx.compose.ui.graphics.Color
 import kotlinx.coroutines.launch
 
 @Composable
-fun WikipediaFavoriteButton(onSelected: (Boolean) -> Unit) {
+fun WikipediaFavoriteButton(
+    favoriteIconAutoSelected: Boolean,
+    onSelected: (Boolean) -> Unit
+) {
     val interactionSource = MutableInteractionSource()
 
     val coroutineScope = rememberCoroutineScope()
 
     var enabled by remember {
-        mutableStateOf(false)
+        mutableStateOf(favoriteIconAutoSelected)
     }
 
     val scale = remember {
