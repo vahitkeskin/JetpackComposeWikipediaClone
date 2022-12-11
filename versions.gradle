@@ -8,4 +8,5 @@ ext {
     room_version = '2.5.0-rc01'
     datastore_version = '1.0.0'
     balloon_version = '1.4.7'
+    timber_version = '5.0.1'
 }

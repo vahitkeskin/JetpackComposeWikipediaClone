@@ -18,20 +18,34 @@ class SharedDataStore(private val context: Context) {
 
     //Jetpack DataStore & Flow
     companion object {
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore("searchPopup")
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
+            name = this.javaClass.simpleName
+        )
         val SEARCH_POPUP = intPreferencesKey("search_popup")
+        val ANIMATION_TOOL_TIPS = intPreferencesKey("animation_tool_tips")
     }
 
-    //get the saved search popup
+    //-- Balloon --
     val getSearchPopup: Flow<Int?> = context.dataStore.data
         .map { preferences ->
             preferences[SEARCH_POPUP] ?: 1
         }
 
-    //save search popup into datastore
     suspend fun saveSearchPopup(name: Int) {
         context.dataStore.edit { preferences ->
             preferences[SEARCH_POPUP] = name
+        }
+    }
+
+    //-- AnimationTooltips --
+    val getAnimationTooltips: Flow<Int?> = context.dataStore.data
+        .map { preferences ->
+            preferences[ANIMATION_TOOL_TIPS] ?: 1
+        }
+
+    suspend fun saveAnimationTooltips(name: Int) {
+        context.dataStore.edit { preferences ->
+            preferences[ANIMATION_TOOL_TIPS] = name
         }
     }
 

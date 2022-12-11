@@ -17,7 +17,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.PagePreview
 
 const val maxAngle = 50f
 val maxTranslation = 140.dp.value
@@ -26,8 +25,7 @@ val maxTranslation = 140.dp.value
 @ExperimentalComposeUiApi
 @Composable
 fun WikipediaParallax(
-    image: String?,
-    pagePreview: PagePreview ?= PagePreview.DETAIL_SCREEN
+    imageUrl: String?
 ) {
 
     var angle by remember { mutableStateOf(Pair(0f, 0f)) }
@@ -95,9 +93,9 @@ fun WikipediaParallax(
             ) {
                 Image(
                     modifier = Modifier.fillMaxSize(),
-                    painter = rememberAsyncImagePainter(model = image),
+                    painter = rememberAsyncImagePainter(model = imageUrl),
                     contentDescription = "Parallax Background",
-                    contentScale = if (pagePreview == PagePreview.HOME_PAGE) ContentScale.FillBounds else ContentScale.None
+                    contentScale = ContentScale.FillBounds
                 )
             }
         }

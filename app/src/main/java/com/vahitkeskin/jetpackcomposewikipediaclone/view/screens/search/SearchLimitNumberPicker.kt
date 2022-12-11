@@ -4,7 +4,7 @@ import android.widget.NumberPicker
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -20,7 +20,7 @@ fun SearchLimitNumberPicker(
     modifier: Modifier = Modifier,
     stateNumberPicker: (Int) -> Unit
 ) {
-    var mStateNumberPicker = 10
+    var mStateNumberPicker by remember { mutableStateOf(10) }
     AndroidView(
         modifier = modifier
             .width(50.dp)

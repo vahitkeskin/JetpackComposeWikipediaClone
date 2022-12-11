@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaParallax
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.created.MainPageTagModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.MainPageTitle
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.PagePreview
 
 /**
  * @authot: Vahit Keskin
@@ -37,7 +36,7 @@ fun SingleItemScreen(
                         .size(height = 190.dp, width = 400.dp)
                         .padding(10.dp)
                 ) {
-                    WikipediaParallax(mainPageTagModelState.image.orEmpty(), PagePreview.HOME_PAGE)
+                    WikipediaParallax(imageUrl = mainPageTagModelState.image.orEmpty())
                 }
                 Text(
                     modifier = Modifier.padding(bottom = 10.dp),

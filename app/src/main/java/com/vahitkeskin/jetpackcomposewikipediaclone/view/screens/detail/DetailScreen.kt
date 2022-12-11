@@ -17,7 +17,6 @@ import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaFavoriteB
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaParallax
 import com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites.FavoriteRoom
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.created.DetailItemModel
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.PagePreview
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.State
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.detailTimestamp
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.instantTime
@@ -25,10 +24,11 @@ import com.vahitkeskin.jetpackcomposewikipediaclone.viewmodel.DetailViewModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.viewmodel.FavoriteViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 @OptIn(ExperimentalAnimationApi::class, ExperimentalComposeUiApi::class)
 @Composable
-fun CharactersDetailScreen(
+fun DetailScreen(
     detailViewModel: DetailViewModel = hiltViewModel(),
     nameStr: String?,
     viewModel: FavoriteViewModel = hiltViewModel()
@@ -53,10 +53,10 @@ fun CharactersDetailScreen(
                         )
                     }
                     is State.ErrorState -> {
-                        println("4. Select for detail screen item name: ErrorState")
+                        Timber.d("4. Select for detail screen item name: ErrorState")
                     }
                     is State.LoadingState -> {
-                        println("5. Select for detail screen item name: LoadingState")
+                        Timber.d("5. Select for detail screen item name: LoadingState")
                     }
                 }
             }
@@ -98,12 +98,11 @@ fun CharactersDetailScreen(
                     }
                 }
                 Box(
-                    modifier = Modifier.size(height = 190.dp, width = 400.dp)
+                    modifier = Modifier
+                        .size(height = 190.dp, width = 400.dp)
+                        .padding(10.dp)
                 ) {
-                    WikipediaParallax(
-                        detailItemModelList[0].originalimage,
-                        PagePreview.DETAIL_SCREEN
-                    )
+                    WikipediaParallax(imageUrl = detailItemModelList[0].originalimage)
                 }
 
                 DetailText(detailItemModelList[0].extract.orEmpty())
@@ -124,6 +123,6 @@ fun CharactersDetailScreen(
 
 @Composable
 @Preview
-fun CharactersDetailScreenPreview() {
-    CharactersDetailScreen(nameStr = "Developer")
+fun DetailScreenPreview() {
+    DetailScreen(nameStr = "Developer")
 }

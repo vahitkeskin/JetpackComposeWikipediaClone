@@ -1,7 +1,6 @@
 package com.vahitkeskin.jetpackcomposewikipediaclone.view
 
 import android.annotation.SuppressLint
-import android.util.Log
 import android.view.View
 import androidx.compose.animation.AnimatedContentScope
 import androidx.compose.animation.ExperimentalAnimationApi
@@ -24,7 +23,7 @@ import com.skydoves.balloon.Balloon
 import com.skydoves.balloon.showAtCenter
 import com.vahitkeskin.jetpackcomposewikipediaclone.datastore.SharedDataStore
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.Screen
-import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.detail.CharactersDetailScreen
+import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.detail.DetailScreen
 import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.favorite.FavoriteScreen
 import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.main.TopQuestionsScreen
 import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.search.SearchScreen
@@ -39,7 +38,6 @@ fun MainScreenNavigation(
     paddingValues: PaddingValues,
     fabVisible: (Boolean) -> Unit
 ) {
-    println("Start in the MainScreenNavigation...")
     val favoriteViewModel: FavoriteViewModel = hiltViewModel()
     val lastSearchViewModel: LastSearchViewModel = hiltViewModel()
     val mainPageViewModel: MainPageViewModel = hiltViewModel()
@@ -47,8 +45,6 @@ fun MainScreenNavigation(
     val detailViewModel: DetailViewModel = hiltViewModel()
     val context = LocalContext.current
     val dataStore = SharedDataStore(context)
-    //var stateOnlyVisible by remember { mutableStateOf(true) }
-    println("1. Shared data store for search popup: ${dataStore.getSearchPopup.collectAsState(initial = "").value}")
 
     Box {
         AnimatedNavHost(
@@ -72,9 +68,6 @@ fun MainScreenNavigation(
                     navHostController = navController
                 ) { fab, navigateToDetail ->
                     fabVisible.invoke(fab)
-                    if (navigateToDetail != "") {
-                        println("composable Click CharactersScreen")
-                    }
                 }
             }
 
@@ -82,13 +75,10 @@ fun MainScreenNavigation(
             composable(Screen.Favorite.route) {
                 FavoriteScreen(viewModel = favoriteViewModel)
             }
-            composable(Screen.CharacterDetail.route + "/{id}", content = { navBackStack ->
+            composable(Screen.Detail.route + "/{id}", content = { navBackStack ->
                 val counter = navBackStack.arguments?.getString("id")
                 if (!counter.isNullOrBlank()) {
-                    Log.d(
-                        this.javaClass.simpleName, "MainScreenNavigation: ${navBackStack.arguments}"
-                    )
-                    CharactersDetailScreen(
+                    DetailScreen(
                         detailViewModel = detailViewModel,
                         nameStr = counter,
                         viewModel = favoriteViewModel
@@ -105,16 +95,17 @@ fun MainScreenNavigation(
             })
         }
         //It will be shown only once, when Dismiss is done the dataStore value 0 will be saved
-        if (dataStore.getSearchPopup.collectAsState(initial = "").value != 0) { } //Development...
-        AndroidView(modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .padding(bottom = 30.dp)
-            .size(height = 110.dp, width = 60.dp), factory = { context ->
-            View(context).apply {
-                balloon?.let {
-                    showAtCenter(it)
+        if (dataStore.getSearchPopup.collectAsState(initial = "").value != 0) {
+            AndroidView(modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .padding(bottom = 30.dp)
+                .size(height = 110.dp, width = 60.dp), factory = { context ->
+                View(context).apply {
+                    balloon?.let {
+                        showAtCenter(it)
+                    }
                 }
-            }
-        })
+            })
+        } //Development...
     }
 }

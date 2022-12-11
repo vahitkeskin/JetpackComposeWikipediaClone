@@ -1,7 +1,6 @@
 package com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.search
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -13,26 +12,15 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.layout.onSizeChanged
-import androidx.compose.ui.layout.positionInRoot
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.vahitkeskin.jetpackcomposewikipediaclone.R
-import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.BigCircleColor
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaBg
-import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaSearchLastItemBG
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.AnimationObject
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.AnimationState
-import com.vahitkeskin.jetpackcomposewikipediaclone.utils.AnimationTooltips
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -44,6 +32,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun WikipediaSearchBar(
+    modifier: Modifier,
     newSearch: (String, String, Boolean) -> Unit
 ) {
     var search by remember { mutableStateOf("Mona Lisa") }
@@ -51,8 +40,6 @@ fun WikipediaSearchBar(
     var stateNumberPicker by remember { mutableStateOf(10) }
     var job: Job? = null
     val coroutineScope = rememberCoroutineScope()
-    var searchIconPosition by remember { mutableStateOf(Offset.Zero) }
-    var searchIconSize by remember { mutableStateOf(IntSize.Zero) }
 
     Box {
         Row(
@@ -112,13 +99,7 @@ fun WikipediaSearchBar(
             )
 
             SearchLimitNumberPicker(
-                modifier = Modifier
-                    .onSizeChanged {
-                        searchIconSize = it
-                    }
-                    .onGloballyPositioned {
-                        searchIconPosition = it.positionInRoot()
-                    }
+                modifier = modifier
             ) { mStateNumberPicker ->
                 stateNumberPicker = mStateNumberPicker
             }
@@ -140,52 +121,6 @@ fun WikipediaSearchBar(
                     contentDescription = null
                 )
             }
-        }
-
-        //ZOOM INFO
-        val animationTooltips: List<AnimationObject> =
-            listOf(
-                //SearchingIcon
-                AnimationObject(
-                    bigCircleRadius = 400.dp,
-                    bigCircleColor = BigCircleColor,
-                    smallCircleRadius = 50.dp,
-                    smallCircleColor = WikipediaSearchLastItemBG,
-                    objectToShow = {
-                        SearchLimitNumberPicker { }
-                    },
-                    objectOffset = searchIconPosition + Offset(10.0f, -150.0f),
-                    objectSize = searchIconSize,
-                    composeDescription = {
-                        Column {
-                            Text(
-                                text = "Use NumberPicker",
-                                style = MaterialTheme.typography.h6,
-                                color = Color.White,
-                                fontWeight = FontWeight.W500
-                            )
-                            Spacer(modifier = Modifier.padding(5.dp))
-                            Text(
-                                text = "You can set the request limit,\nso you can prevent unnecessary\ndata from coming.\uD83D\uDE09\n(Default limit 10)",
-                                style = MaterialTheme.typography.subtitle1,
-                                color = Color.White
-                            )
-                        }
-                    },
-                    composeDescriptionOffset = Offset(200.0f, 300.0f)
-                )
-            )
-
-        var state by remember { mutableStateOf(0) }
-        if (state > AnimationState.FINISHED.value) {
-            AnimationTooltips(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .background(Color.Black.copy(0.3f)),
-                tooltipsList = animationTooltips,
-                state = { state = it },
-                bigCircleColorBeforeDisappearing = BigCircleColor
-            )
         }
     }
 }
