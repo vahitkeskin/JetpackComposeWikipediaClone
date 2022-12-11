@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.JetpackComposeWikipediaClone" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="Theme.JetpackComposeWikipediaClone" parent="Theme.Material3.Dark.NoActionBar">
         <item name="android:statusBarColor">@color/wikipedia_toolbar</item>
+        <item name="android:navigationBarColor">@color/wikipedia_toolbar</item>
     </style>
 
     <style name="Theme.JetpackComposeWikipediaClone.NoActionBar">
