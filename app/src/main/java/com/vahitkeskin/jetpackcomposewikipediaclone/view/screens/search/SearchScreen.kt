@@ -11,6 +11,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
@@ -34,10 +35,11 @@ import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.BigCircleColor
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaSearchLastItemBG
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.*
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.State
+import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.favorite.EmptyAnimation
+import com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.favorite.TextShadow
 import com.vahitkeskin.jetpackcomposewikipediaclone.viewmodel.LastSearchViewModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.viewmodel.SearchViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import java.util.*
 import java.util.stream.Collectors
 
@@ -189,11 +191,22 @@ fun SearchScreen(
                 }
                 Box {
                     if (!(searchItemDataClass.size > 0)) {
-                        LazyRow { //Last Search Item Shimmer
-                            repeat(10) {
-                                item {
-                                    ShimmerAnimation(PagePreview.SEARCH_LAST_ITEM)
+                        if (search != "") {
+                            LazyRow { //Last Search Item Shimmer
+                                repeat(10) {
+                                    item {
+                                        ShimmerAnimation(PagePreview.SEARCH_LAST_ITEM)
+                                    }
                                 }
+                            }
+                        } else {
+                            Column(
+                                modifier = Modifier.fillMaxSize(),
+                                verticalArrangement = Arrangement.Center,
+                                horizontalAlignment = Alignment.CenterHorizontally
+                            ) {
+                                EmptyAnimation(PagePreview.SEARCH_SCREEN)
+                                TextShadow("Empty Search")
                             }
                         }
                     } else {

@@ -1,5 +1,6 @@
 package com.vahitkeskin.jetpackcomposewikipediaclone.view.screens.detail
 
+import android.widget.Toast
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -7,15 +8,19 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaFavoriteButton
+import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaOnLifecycleEvent
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaParallax
 import com.vahitkeskin.jetpackcomposewikipediaclone.dao.favorites.FavoriteRoom
+import com.vahitkeskin.jetpackcomposewikipediaclone.datastore.SharedDataStore
 import com.vahitkeskin.jetpackcomposewikipediaclone.model.created.DetailItemModel
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.State
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.detailTimestamp
@@ -38,6 +43,29 @@ fun DetailScreen(
     val detailItemModelList = remember { mutableStateListOf<DetailItemModel>() }
     var favoriteIconAutoSelected by remember { mutableStateOf(false) }
     val favoriteModel = remember { mutableStateListOf<FavoriteRoom>() }
+    val context = LocalContext.current
+    val dataStore = SharedDataStore(context)
+
+    //Jetpack Compose LifeCycle
+    WikipediaOnLifecycleEvent { _, event ->
+        when (event) {
+            Lifecycle.Event.ON_RESUME -> {
+                //DetailScreen Screen VISIBLE
+                Toast.makeText(context, "DetailScreen Screen VISIBLE...", Toast.LENGTH_SHORT).show()
+                coroutineScope.launch {
+                    dataStore.saveBottomBar(false)
+                }
+            }
+            Lifecycle.Event.ON_PAUSE -> {
+                //DetailScreen Screen GONE
+                Toast.makeText(context, "DetailScreen Screen GONE...", Toast.LENGTH_SHORT).show()
+                coroutineScope.launch {
+                    dataStore.saveBottomBar(true)
+                }
+            }
+            else -> {}
+        }
+    }
 
     if (state) {
         coroutineScope.launch {

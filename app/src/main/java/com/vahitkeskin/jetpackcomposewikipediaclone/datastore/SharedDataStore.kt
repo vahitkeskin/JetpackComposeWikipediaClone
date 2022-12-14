@@ -3,6 +3,7 @@ package com.vahitkeskin.jetpackcomposewikipediaclone.datastore
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -23,6 +24,7 @@ class SharedDataStore(private val context: Context) {
         )
         val SEARCH_POPUP = intPreferencesKey("search_popup")
         val ANIMATION_TOOL_TIPS = intPreferencesKey("animation_tool_tips")
+        val BOTTOM_BAR = booleanPreferencesKey("bottom_bar")
     }
 
     //-- Balloon --
@@ -46,6 +48,18 @@ class SharedDataStore(private val context: Context) {
     suspend fun saveAnimationTooltips(name: Int) {
         context.dataStore.edit { preferences ->
             preferences[ANIMATION_TOOL_TIPS] = name
+        }
+    }
+
+    //-- AnimationTooltips --
+    val getBottomBar: Flow<Boolean?> = context.dataStore.data
+        .map { preferences ->
+            preferences[BOTTOM_BAR] ?: true
+        }
+
+    suspend fun saveBottomBar(visible: Boolean) {
+        context.dataStore.edit { preferences ->
+            preferences[BOTTOM_BAR] = visible
         }
     }
 

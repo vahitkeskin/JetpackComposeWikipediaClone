@@ -14,26 +14,34 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.skydoves.balloon.Balloon
+import com.vahitkeskin.jetpackcomposewikipediaclone.datastore.SharedDataStore
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.WikipediaBg
 import com.vahitkeskin.jetpackcomposewikipediaclone.utils.Screen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun BottomBarWithFabDem(
-    balloon: Balloon ?= null
+    balloon: Balloon? = null,
+    navController: NavHostController
 ) {
     var fabTint by remember { mutableStateOf(false) }
-    val navController = rememberAnimatedNavController()
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    val context = LocalContext.current
+    val dataStore = SharedDataStore(context)
+    val getBottomBar = dataStore.getBottomBar.collectAsState(initial = "").value
+
+
     Scaffold(
         bottomBar = {
             AnimatedVisibility(
-                visible = true,
+                visible = getBottomBar == true,
                 enter = slideInVertically(initialOffsetY = { it }),
                 exit = slideOutVertically(targetOffsetY = { it }),
                 content = {
@@ -56,21 +64,22 @@ fun BottomBarWithFabDem(
         isFloatingActionButtonDocked = true,
         floatingActionButton = {
             AnimatedVisibility(
-                visible = true,
+                visible = getBottomBar == true,
                 enter = slideInVertically(initialOffsetY = { it }),
                 exit = slideOutVertically(targetOffsetY = { it }),
                 content = {
                     FloatingActionButton(
                         shape = CircleShape,
                         onClick = {
-                            navController.navigate(Screen.Search.route) {
-                                popUpTo(navController.graph.findStartDestination().id) {
-                                    saveState = true
+                            Screen.Search.route.let { it1 ->
+                                navController.navigate(it1) {
+                                    popUpTo(navController.graph.findStartDestination().id) {
+                                        saveState = true
+                                    }
+                                    launchSingleTop = true
+                                    restoreState = true
                                 }
-                                launchSingleTop = true
-                                restoreState = true
                             }
-                            navController.navigate(Screen.Search.route)
                         },
                         contentColor = Color.Gray,
                         backgroundColor = WikipediaBg

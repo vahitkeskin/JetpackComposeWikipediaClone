@@ -37,6 +37,7 @@ import com.google.accompanist.pager.rememberPagerState
 import com.vahitkeskin.jetpackcomposewikipediaclone.R
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaExpandableText
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.RatingBarColor
+import com.vahitkeskin.jetpackcomposewikipediaclone.utils.PagePreview
 import com.vahitkeskin.jetpackcomposewikipediaclone.viewmodel.FavoriteViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.yield
@@ -68,15 +69,12 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
         }
 
         Column(
-            modifier = Modifier
-                .padding(
-                    top = 30.dp,
-                    bottom = 40.dp
-                )
+            modifier = Modifier.padding(
+                top = 30.dp, bottom = 40.dp
+            )
         ) {
             HorizontalPager(
-                state = pagerState,
-                verticalAlignment = Alignment.Top
+                state = pagerState, verticalAlignment = Alignment.Top
             ) { pageIndex ->
                 val place = viewModel.favorite[pageIndex]
                 Card(
@@ -95,9 +93,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                         }
                         .fillMaxWidth()
                         .padding(
-                            start = 12.dp,
-                            end = 12.dp,
-                            bottom = 70.dp
+                            start = 12.dp, end = 12.dp, bottom = 70.dp
                         ),
                     shape = RoundedCornerShape(24.dp),
                 ) {
@@ -107,8 +103,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                             imageView.load(place.itemImage)//URL Selected -> place.url
                         }
                         AndroidView(
-                            factory = { customView },
-                            modifier = Modifier.fillMaxSize()
+                            factory = { customView }, modifier = Modifier.fillMaxSize()
                         )
 
                         Column(
@@ -131,7 +126,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                             ).apply {
                                 rating = place.itemRandomRating
                                 progressDrawable.setColorFilter(
-                                    ContextCompat.getColor(context,R.color.rating_bar_color),
+                                    ContextCompat.getColor(context, R.color.rating_bar_color),
                                     PorterDuff.Mode.SRC_ATOP
                                 )
                             }
@@ -140,14 +135,13 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                                 modifier = Modifier.padding(top = 8.dp),
                                 verticalAlignment = Alignment.CenterVertically
                             ) {
-                                AndroidView(
-                                    factory = { ratingBar }
+                                AndroidView(factory = { ratingBar })
+                                Text(
+                                    text = place.itemRandomRating.toString(), color = RatingBarColor
                                 )
-                                Text(text = place.itemRandomRating.toString(), color = RatingBarColor)
                             }
                             WikipediaExpandableText(
-                                text = place.itemDetail,
-                                modifier = Modifier.padding(top = 8.dp)
+                                text = place.itemDetail, modifier = Modifier.padding(top = 8.dp)
                             )
                             pagerItemState = pageIndex
                         }
@@ -158,21 +152,21 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                         .fillMaxSize()
                         .padding(
                             22.dp,
-                        ),
-                    verticalAlignment = Alignment.Bottom
+                        ), verticalAlignment = Alignment.Bottom
                 ) {
                     Column {
                         //Delete
-                        Row(
-                            modifier = Modifier.clickable {
-                                Toast.makeText(context, "Click item title: ${place.itemTitle}", Toast.LENGTH_SHORT).show()
-                                viewModel.deleteFavorite(place)
-                            }
-                        ) {
+                        Row(modifier = Modifier.clickable {
+                            Toast.makeText(
+                                context,
+                                "Click item title: ${place.itemTitle}",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            viewModel.deleteFavorite(place)
+                        }) {
                             Text(text = "Delete ")
                             Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = null
+                                imageVector = Icons.Default.Delete, contentDescription = null
                             )
                         }
                     }
@@ -188,22 +182,18 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
         }
         //Delete All
         if (viewModel.favorite.size > 1) {
-            Row(
-                modifier = Modifier
-                    .clickable {
-                        viewModel.deleteAllFavorite()
-                    }
-                    .fillMaxWidth()
-                    .padding(5.dp),
-                horizontalArrangement = Arrangement.End
-            ) {
+            Row(modifier = Modifier
+                .clickable {
+                    viewModel.deleteAllFavorite()
+                }
+                .fillMaxWidth()
+                .padding(5.dp), horizontalArrangement = Arrangement.End) {
                 Text(text = "Delete All ")
                 Box(
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = null
+                        imageVector = Icons.Default.Delete, contentDescription = null
                     )
                     Text(text = "${viewModel.favorite.size}", color = Color.Black, fontSize = 12.sp)
                 }
@@ -215,7 +205,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            EmptyFavoriteAnimation()
+            EmptyAnimation(PagePreview.FAVORITE_SCREEN)
             TextShadow("Empty Favorites")
         }
     }

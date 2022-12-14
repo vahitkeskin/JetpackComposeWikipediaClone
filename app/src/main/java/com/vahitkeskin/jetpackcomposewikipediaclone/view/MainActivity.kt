@@ -1,9 +1,9 @@
 package com.vahitkeskin.jetpackcomposewikipediaclone.view
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.skydoves.balloon.balloon
 import com.vahitkeskin.jetpackcomposewikipediaclone.component.WikipediaTopAppBar
 import com.vahitkeskin.jetpackcomposewikipediaclone.ui.theme.jetpackcomposewikipediacloneTheme
@@ -26,15 +27,16 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 @ExperimentalMaterialApi
+@OptIn(ExperimentalAnimationApi::class)
 class MainActivity : ComponentActivity() {
 
     private val balloon by balloon<BalloonFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Toast.makeText(this, "Start MainActivity", Toast.LENGTH_SHORT).show()
         setContent {
             jetpackcomposewikipediacloneTheme {
+                val navController = rememberAnimatedNavController()
                 Scaffold(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -47,12 +49,12 @@ class MainActivity : ComponentActivity() {
                                     .fillMaxWidth(),
                                 contentAlignment = Alignment.Center
                             ) {
-                                WikipediaTopAppBar()
+                                WikipediaTopAppBar(navController = navController)
                             }
                         }
                     }
                 ) {
-                    BottomBarWithFabDem(balloon = balloon)
+                    BottomBarWithFabDem(balloon = balloon, navController = navController)
                 }
             }
         }
@@ -63,6 +65,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun DefaultPreview() {
     jetpackcomposewikipediacloneTheme {
-        BottomBarWithFabDem()
+        //BottomBarWithFabDem()
     }
 }
