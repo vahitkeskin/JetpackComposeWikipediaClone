@@ -10,17 +10,17 @@ You can review it from the github readme link, where I used videos and images to
 We must be better than we were yesterday 😉
 </br></br>
 I hope it will be useful, good work everyone.
-</br></br></br></br>
+</br></br>
 
-✅ Jetpack Compose
-✅ Flipper
-✅ Dependency injection
-✅ Dagger - Hilt
-✅ Flow
-✅ DataStore-flow
-✅ Room
-✅ Coroutine
-✅ Timber
+✅ Jetpack Compose</br>
+✅ Flipper</br>
+✅ Dependency injection</br>
+✅ Dagger - Hilt</br>
+✅ Flow</br>
+✅ DataStore-flow</br>
+✅ Room</br>
+✅ Coroutine</br>
+✅ Timber</br>
 </br></br>
 
 ![originalimage](https://user-images.githubusercontent.com/36104238/208066510-f459e063-a09c-489a-b23b-ba60e706fe1a.png)
