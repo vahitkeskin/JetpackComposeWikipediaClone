@@ -51,14 +51,12 @@ fun DetailScreen(
         when (event) {
             Lifecycle.Event.ON_RESUME -> {
                 //DetailScreen Screen VISIBLE
-                Toast.makeText(context, "DetailScreen Screen VISIBLE...", Toast.LENGTH_SHORT).show()
                 coroutineScope.launch {
                     dataStore.saveBottomBar(false)
                 }
             }
             Lifecycle.Event.ON_PAUSE -> {
                 //DetailScreen Screen GONE
-                Toast.makeText(context, "DetailScreen Screen GONE...", Toast.LENGTH_SHORT).show()
                 coroutineScope.launch {
                     dataStore.saveBottomBar(true)
                 }

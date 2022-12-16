@@ -157,11 +157,7 @@ fun FavoriteScreen(viewModel: FavoriteViewModel = hiltViewModel()) {
                     Column {
                         //Delete
                         Row(modifier = Modifier.clickable {
-                            Toast.makeText(
-                                context,
-                                "Click item title: ${place.itemTitle}",
-                                Toast.LENGTH_SHORT
-                            ).show()
+                            Toast.makeText(context, "Click item title: ${place.itemTitle}", Toast.LENGTH_SHORT).show()
                             viewModel.deleteFavorite(place)
                         }) {
                             Text(text = "Delete ")
