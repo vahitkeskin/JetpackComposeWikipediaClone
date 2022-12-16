@@ -1,10 +1,10 @@
 # Jetpack Compose Wikipedia Clone
 
-Hello everyone 🙋🏻‍♂️
+Hello everyone 🙋🏻‍♂️</br></br>
 I made a wikipedia clone application called using wikipedia api with jetpack compose that I have been working on for a long time.</br>
 In this application where I try to use the latest technologies, I will be sharing the github link for you,</br>
 The app is huge and every step is carefully written, I will edit and update it in case errors appear 🙂
-</br>
+</br></br>
 You can review it from the github readme link, where I used videos and images to explain briefly.
 </br></br>
 We must be better than we were yesterday 😉
