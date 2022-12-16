@@ -20,11 +20,11 @@ I hope it will be useful, good work everyone.
 ✅ DataStore-flow</br>
 ✅ Room</br>
 ✅ Coroutine</br>
-✅ Timber</br>
+✅ Timber
 </br></br>
 
 ![originalimage](https://user-images.githubusercontent.com/36104238/208066510-f459e063-a09c-489a-b23b-ba60e706fe1a.png)
-</br></br>
+</br>
 
 * Move the picture in 3D with two fingers.
 * Set your own request limit.
@@ -38,7 +38,7 @@ I hope it will be useful, good work everyone.
 * Get attention with the scrolling text feature.
 * Receive and use color codes via API.
 * I created a fake view thanks to AndroidView without using XML, and I was able to use the Balloon feature, which normally works in XML.
-</br></br></br></br>
+</br></br>
 
 | Jetpack Compose | Wikipedia Clone |
 | ------ | ------ |
