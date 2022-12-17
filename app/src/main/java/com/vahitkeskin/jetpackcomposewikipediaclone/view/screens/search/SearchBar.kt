@@ -88,14 +88,16 @@ fun WikipediaSearchBar(
                     )
                 },
                 trailingIcon = {
-                    Icon(
-                        modifier = Modifier.clickable {
-                            search = ""
-                        },
-                        painter = painterResource(id = R.drawable.ic_baseline_cancel_24),
-                        contentDescription = null,
-                        tint = Color.LightGray,
-                    )
+                    if (search.isNotEmpty()) {
+                        Icon(
+                            modifier = Modifier.clickable {
+                                search = ""
+                            },
+                            painter = painterResource(id = R.drawable.ic_baseline_cancel_24),
+                            contentDescription = null,
+                            tint = Color.LightGray,
+                        )
+                    }
                 }
             )
 
